@@ -12,16 +12,17 @@ techChallenge.factory('Company', ['$templateCache', '$log',
                     card.autoApprove = true;
                     card.metaTags = [];
                     card.metaTags[0] = 'c2';
-                    if (!card.contentProvider) {
-                        var d = new Date();
-                        var n = d.getTime();
-                        card.contentProvider = {
-                            'contentId' : n,
-                            'id' : 'angular-web-app',
-                            'userId' : 'angular-web-app-user'
-                        };
-                    }
-                    card.categories = ['angular-client', 'smes', 'us-en'];
+                    var d = new Date();
+					card.contentProvider = {
+						'contentId' : d.getTime(),
+						'id' : 'angular-web-app',
+						'userId' : 'angular-web-app-user'
+					};
+					if (card.categories) {
+						card.categories.push('angular-client', 'smes', 'us-en');
+					} else {
+						card.categories = ['angular-client', 'smes', 'us-en'];
+					}
                     if (company.logoImgUrl) {
                         card.attachments = [{
                                 'type' : 'photo',
@@ -39,14 +40,15 @@ techChallenge.factory('Company', ['$templateCache', '$log',
                     if (template) {
                         card.content = Mustache.to_html(template, company);
                     }
+					
                 },
-                fromCard : function (card) {
-                    var company = card.jsonExtendedData;
-                    company.cardId = card.id;
-                    if (card.attachments && card.attachments[0].images) {
-                        company.logoImgUrl = card.attachments[0].images[0].url;						
+                fromCard : function (response) {  
+					var company = response.jsonExtendedData;
+                    company.cardId = response.id;
+                    if (response.attachments && response.attachments[0].images) {
+                        company.logoImgUrl = response.attachments[0].images[0].url;						
                     }
-                    return company;
+					return company;
                 }
             }
         }
@@ -85,7 +87,15 @@ techChallenge.factory('Card', ['$resource',
                     headers : {
                         'x-client-id' : clientId,
                         'x-access-token' : clientSecret
-                    }
+                    },
+					transformRequest: function(data) {
+						if (data) {
+							data.author = undefined;
+							data.permission = undefined;
+							data = angular.toJson(data);
+						}
+						return data;
+					}
                 }
             });
         }

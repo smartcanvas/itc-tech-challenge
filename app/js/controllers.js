@@ -5,30 +5,19 @@
 techChallenge
 .controller('CompanyController', function ($window, $log, $scope, $routeParams, $http, $templateCache, $mdToast, $mdSidenav, Card, Company, Utils) {
     Utils.storeClientCookies($routeParams);
-    $scope.init = function () {
-        $scope.card = new Card();
+	
+	function init() {
+		$scope.card = new Card();
         $scope.company = {};        
         $window.scrollTo(0, 0);
         $http.get('partials/card-content.html').then(function (resp) {
             var template = resp.data;
             $templateCache.put('cardContentTemplate.html', template);
         });
-    };
-    $scope.init();
-    if ($routeParams.id) {
-        $scope.card = Card.get({
-			cardId : $routeParams.id
-		}).$promise.then(function (r) {
-			$scope.company = Company.fromCard(r);
-		});
-    }
-
-    $scope.closeToast = function () {
-        $mdToast.hide();
-    };
-    
-    $scope.showToast = function (msg, delay, isLoading) {
-        var toastTemplate = '<md-toast class="md-capsule"><span>' + msg + '</span></md-toast>';
+	}
+	
+	function showToast(msg, delay, isLoading) {
+		var toastTemplate = '<md-toast class="md-capsule"><span>' + msg + '</span></md-toast>';
 		if (!delay) {
 			delay = 0;
 		}
@@ -40,40 +29,36 @@ techChallenge
             hideDelay : delay,
             position : 'bottom left'
         });
-    }
-
+	}
+	
+	function loadCompanyCard() {
+		showToast("Loading company info...", null, true);
+        Card.get({
+			cardId : $routeParams.id
+		}).$promise.then(function (r) {
+			showToast("Company info loaded!", 5000);
+			$scope.company = Company.fromCard(r);
+			$scope.card = r;		
+		});
+	}
+	
 	$scope.toggleJson = function () {
 		$mdSidenav('json-view').toggle();
 	};
-
-	$scope.saveCompany = function () {
-		$scope.showToast("Saving company info...", null, true);
-		if ($scope.card.id) {
-			$scope.card.$update(function (r) {
-				$log.info('Card with id ' + r.cardId + ' updated.');
-				$scope.showToast('Company card updated!', 5000);
-				$scope.init();
-				$scope.companyForm.$setUntouched();
-			});
+	
+	$scope.cancel = function () {
+		if ($routeParams.id) {
+			loadCompanyCard();
 		} else {
-			$scope.card.$create(function (r) {
-				$log.info('Card created: ' + JSON.stringify(r));
-				$scope.showToast('Company card saved: ' + r.cardId + '!', 5000);
-				$scope.init();
-				$scope.companyForm.$setUntouched();
-			});
+			init();
+			$scope.companyForm.$setUntouched();
 		}
 	};
-
+	
 	$scope.syncCardModel = function () {
 		Company.toCard($scope.company, $scope.card);
 	};
-
-	$scope.cancel = function () {
-		$scope.init();
-		$scope.companyForm.$setUntouched();
-	};
-
+	
 	$scope.isCompanyValid = function () {
 		if ($scope.companyForm.$pristine) {
 			return false;
@@ -83,6 +68,30 @@ techChallenge
 		}
 		return true;
 	};
+	
+	$scope.saveCompany = function() {
+		showToast("Saving company info...", null, true);
+		$log.info($scope.card);
+		if ($scope.card.id) {
+			$scope.card.$update(function (r) {
+				$log.info('Card with id ' + r.cardId + ' updated.');
+				showToast('Company card updated!', 5000);				
+				loadCompanyCard();
+			});
+		} else {
+			$scope.card.$create(function (r) {
+				$log.info('Card created: ' + JSON.stringify(r));
+				showToast('Company card saved: ' + r.cardId + '!', 5000);
+				init();
+				$scope.companyForm.$setUntouched();
+			});
+		}
+	}
+	
+    init();	
+    if ($routeParams.id) {
+		loadCompanyCard();
+    }
 
 })
 .controller('CompanyListController', function ($log, $scope, $routeParams, Card, Company, Utils) {
