@@ -1,0 +1,20 @@
+{
+  "name": "d1-un-tech-challenge",
+  "description": "A simple web application for Tech Challenge",
+  "version": "0.0.0",
+  "homepage": "https://github.com/TODO",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-mocks": "1.4.x",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.1.1",
+    "angular-route": "1.4.x",
+    "angular-resource": "1.4.x",
+    "angular-cookies": "1.4.x",
+	"angular-aria": "1.4.x",
+	"angular-material": "0.10.0",
+	"angular-ui-date": "0.0.8"
+  }
+}

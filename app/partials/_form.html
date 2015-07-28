@@ -1,0 +1,130 @@
+<div id="main-content" layout="column" class="content-container">
+	<md-content>
+		<div class="content-block">
+			<div layout layout-sm="column" class="content-block-title">
+				<h4>Profile Information</h4>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex>
+					<label>Company Name</label>
+					<input ng-model="company.name" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container class="md-icon-float" flex="66" flex-sm>
+					<label>Address</label>
+					<md-icon md-font-icon="icon-ic_place_48px"></md-icon>
+					<input ng-model="company.address" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+				<md-input-container flex="33" flex-sm>
+					<label>Country</label>
+					<input ng-model="company.country" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container class="md-icon-float" flex="66" flex-sm>
+					<label>Website</label>
+					<md-icon md-font-icon="icon-ic_insert_link_48px"></md-icon>
+					<input ng-model="company.website" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+				<md-input-container class="md-icon-float" flex="33" flex-sm>
+					<label>Phone</label>
+					<md-icon md-font-icon="icon-ic_phone_48px"></md-icon>
+					<input ng-model="company.phone" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container class="md-icon-float" flex>
+					<label>Logo Image Url</label>
+					<md-icon md-font-icon="icon-ic_insert_link_48px"></md-icon>
+					<input ng-model="company.logoImgUrl" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>
+		</div>
+		<div class="content-block">
+			<div layout layout-sm="column" class="content-block-title">
+				<h4>Contact Information</h4>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex="50">
+					<label>Name</label>
+					<input ng-model="company.contactName" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+				<md-input-container flex="50">
+					<label>Job Title</label>
+					<input ng-model="company.contactJobTitle" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>			
+		</div>
+		<div class="content-block">
+			<div layout layout-sm="column" class="content-block-title">
+				<h4>Company Information</h4>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex="35">
+					<label>Year of Establishment</label>
+					<input ui-date ui-date-format="d MM, yy" ng-model="company.yearOfEstablishment" ng-change="syncCardModel()">
+				</md-input-container>
+				<md-input-container flex="35">
+					<label>% of the Business Owned by Women</label>
+					<input class="numeric-input" type="number" ng-model="company.percBusinessOwnedByWomen" ng-change="syncCardModel()" min="0" max="100" size="50">
+				</md-input-container>
+				<md-input-container flex="30">
+					<md-checkbox ng-model="company.isManagedControledByWomen" aria-label="Managed & Controled by Women?">Managed & Controled by Women? </md-checkbox>
+				</md-input-container>				
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex="35">
+					<label># of Permanent Employees</label>
+					<input class="numeric-input" type="number" ng-model="company.numPermEmployee" ng-change="syncCardModel()" min="0">
+				</md-input-container>
+				<md-input-container flex="35">
+					<label># of Female Employees</label>
+					<input class="numeric-input" type="number" ng-model="company.numFemaleEmployee" ng-change="syncCardModel()" min="0">
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex>
+					<label>Certifications</label>
+					<textarea ng-model="company.certifications" ng-trim="true" ng-change="syncCardModel()" md-maxlength="3000" column="1" rows="1"></textarea>
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-input-container flex>
+					<label>Member Of</label>
+					<input ng-model="company.memberOf" ng-trim="true" ng-change="syncCardModel()">
+				</md-input-container>
+			</div>
+		</div>
+		<div class="content-block">
+			<div layout layout-sm="column" class="content-block-title">
+				<h4>Business Description</h4>
+			</div>
+			<md-input-container flex>
+				<textarea ng-model="company.businessDescription" ng-trim="true" aria-label="Business Description" ng-change="syncCardModel()" md-maxlength="5000" column="1" rows="1"></textarea>
+			</md-input-container>
+		</div>
+		<div class="content-block-bottom">
+			<div layout="row">
+                <div flex></div>
+                <md-button type="button" aria-label="Cancel" ng-click="cancel()">Cancel</md-button>
+                <md-button class="md-accent" aria-label="Save" type="button" ng-click="saveCompany()" ng-disabled="!isCompanyValid()">Save</md-button>
+            </div>
+		</div>
+		<div class="content-block">
+			<div layout layout-sm="column" class="content-block-title">
+				<h4>JSON</h4>
+			</div>
+			<div layout layout-sm="column">
+				<div flex="50" class="jsonContainer">
+					Company JSON:
+					<pre>{{company | json}}</pre>
+				</div>
+				<div flex="50">
+					Card JSON:
+					<pre>{{card | json}}</pre>
+				</div>			
+			</div>
+		</div>
+	</md-content>
+</div>

@@ -1,0 +1,139 @@
+<style type="text/css">
+	.company-info-container {		
+	}
+	
+	.company-info-container .company-info {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+	
+	.company-info-container .col1 {
+        width: 100%;
+    }
+	
+	.company-info-container .col2-1 {
+        width: 55%;
+    }
+	
+	.company-info-container .col2-2 {
+        width: 35%;
+    }
+	
+	.company-info-container .col3-1 {
+        width: 30%;
+    }
+	
+	.company-info-container .info-item {
+		display: inline-block;
+		margin-bottom: 20px;
+		position: relative;
+		vertical-align: top;
+	}
+	
+	.company-info-container .info-item-icon {
+		color: #002b54;
+		font-size: 25px;
+		position: absolute;
+		top: 13px;
+	}
+	
+	.company-info-container .info-item-label {
+		font-size: 12px;
+        color: #a8a8a8;
+        display: block;
+        padding: 0 36px;
+        word-break: break-all;
+	}
+	
+	.company-info-container .info-item-content {
+		font-size: 16px;
+        color: #4A4A4A;
+        display: block;
+        padding: 0 36px;
+        word-break: break-all;
+	}
+	
+	.company-info-container .hr-style {
+        border: 0;
+        height: 1px;
+        background: #E8E8E8;
+        margin: 20px 0;
+    }
+</style>
+
+<div class="company-info-container">
+	<ul class="company-info">
+		<li class="info-item col2-1">
+			<i class="icon-ic_place_48px info-item-icon"></i>
+            <span class="info-item-label">Address</span>
+			<span class="info-item-content">{{address}}</span>
+		</li>
+		<li class="info-item col2-2">
+			<span class="info-item-label">Country</span>
+			<span class="info-item-content">{{country}}</span>
+		</li>
+		<li class="info-item col2-1">
+			<i class="icon-ic_insert_link_48px info-item-icon"></i>
+			<span class="info-item-label">Website</span>
+			<a class="info-item-content" href="{{website}}">{{website}}</a>
+		</li>
+		<li class="info-item col2-2">
+			<i class="icon-ic_phone_48px info-item-icon"></i>
+			<span class="info-item-label">Phone</span>
+			<span class="info-item-content">{{phone}}</span>
+		</li>
+	</ul>
+	<hr class="hr-style">
+	<ul class="company-info">
+		<li class="info-item col2-1">
+			<span class="info-item-label">Contact Name</span>
+			<span class="info-item-content">{{contactName}}</span>
+		</li>
+		<li class="info-item col2-2">
+			<span class="info-item-label">Job Title</span>
+			<span class="info-item-content">{{contactJobTitle}}</span>
+		</li>
+	</ul>
+	<hr class="hr-style">
+	<ul class="company-info">
+		<li class="info-item col3-1">
+			<span class="info-item-label">Year of Establishment</span>
+			<span class="info-item-content">{{yearOfEstablishment}}</span>
+		</li>
+		<li class="info-item col3-1">
+			<span class="info-item-label">% of the Business Owned by Women</span>
+			<span class="info-item-content">{{percBusinessOwnedByWomen}}</span>
+		</li>
+		<li class="info-item col3-1">
+			<span class="info-item-label">Managed & Controled by Women?</span>
+			<span class="info-item-content">
+				{{#isManagedControledByWomen}}Yes{{/isManagedControledByWomen}}
+				{{^isManagedControledByWomen}}No{{/isManagedControledByWomen}}
+			</span>
+		</li>
+		<li class="info-item col3-1">
+			<span class="info-item-label"># of Permanent Employees</span>
+			<span class="info-item-content">{{numPermEmployee}}</span>
+		</li>
+		<li class="info-item col3-1">
+			<span class="info-item-label"># of Female Employees</span>
+			<span class="info-item-content">{{numFemaleEmployee}}</span>
+		</li>
+		<li class="info-item col1">
+			<span class="info-item-label">Certifications</span>
+			<span class="info-item-content">{{certifications}}</span>
+		</li>
+		<li class="info-item col1">
+			<span class="info-item-label">Member Of</span>
+			<span class="info-item-content">{{memberOf}}</span>
+		</li>
+	</ul>
+	<hr class="hr-style">
+	<ul class="company-info">
+		<li class="info-item col1">
+			<span class="info-item-label">Business Description</span>
+			<span class="info-item-content">{{businessDescription}}</span>
+		</li>
+	</ul>
+</div>
