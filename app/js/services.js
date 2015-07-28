@@ -41,10 +41,8 @@ techChallenge.factory('Company', ['$templateCache', '$log',
                     }
                 },
                 fromCard : function (card) {
-                    var company = {};
+                    var company = card.jsonExtendedData;
                     company.cardId = card.id;
-                    company.name = card.title;
-                    company.businessDescription = card.summary;					
                     if (card.attachments && card.attachments[0].images) {
                         company.logoImgUrl = card.attachments[0].images[0].url;						
                     }

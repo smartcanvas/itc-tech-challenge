@@ -7,24 +7,7 @@ techChallenge
     Utils.storeClientCookies($routeParams);
     $scope.init = function () {
         $scope.card = new Card();
-        $scope.company = {};
-        $scope.company = {
-            "name" : "Kaldi Africa Limited",
-            "address" : "1, Adeyemi Bero Crescent Lagos",
-            "country" : "NIgeria",
-            "website" : "http://WWW.kaldiafrica.com",
-            "phone" : "2147483647",
-            "logoImgUrl" : "http://women.e.coop/media/catalog/product/cache/5/small_image/9df78eab33525d08d6e5fb8d27136e95/2/9/29936_408_11.jpg",
-            "contactName" : "Nasra Ali",
-            "contactJobTitle" : "MD",
-            "yearOfEstablishment" : "15 June, 2015",
-            "percBusinessOwnedByWomen" : 75,
-            "isManagedControledByWomen" : true,
-            "numPermEmployee" : 4,
-            "numFemaleEmployee" : 4,
-            "certifications" : "NAFDAC",
-            "businessDescription" : "Kaldi Africa is an African brand that capitalizes on African raw materials such as Coffee, Tea and Cocoa without compromising on quality and providing it to the African markets using the highest possible technology to produce it. We are Nigeria Premier Roastery. "
-        }
+        $scope.company = {};        
         $window.scrollTo(0, 0);
         $http.get('partials/card-content.html').then(function (resp) {
             var template = resp.data;
@@ -34,9 +17,10 @@ techChallenge
     $scope.init();
     if ($routeParams.id) {
         $scope.card = Card.get({
-                cardId : $routeParams.id
-            });
-        $scope.company = Company.fromCard($scope.card);
+			cardId : $routeParams.id
+		}).$promise.then(function (r) {
+			$scope.company = Company.fromCard(r);
+		});
     }
 
     $scope.closeToast = function () {
@@ -57,10 +41,6 @@ techChallenge
             position : 'bottom left'
         });
     }
-    $scope.test = function (msg) {
-		var toast = $scope.showToast("Saving company info...", null, true);
-		$scope.showToast("Company card updated!", 5000);
-	}
 
 	$scope.toggleJson = function () {
 		$mdSidenav('json-view').toggle();
