@@ -1,9 +1,32 @@
 @import url("icomoon.css");
 
+.header {
+	backface-visibility: hidden;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    left: 0;
+    margin: 0 auto;
+    max-width: 100%;
+    opacity: 0.95;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 40;
+	background-color: #fff;
+}
+
+.header-logo {
+	background: rgba(0, 0, 0, 0) url("/app/images/wvef-80px.png") repeat scroll 0 0 / 300px 40px;
+    display: inline-block;
+    height: 40px;
+    width: 300px;
+	margin: 15px;
+}
+
 .content-container {
 	width: 70%;
 	box-sizing: border-box;
-	margin: 30px auto 0;	
+	margin: 90px auto 0;	
 	background-color: #fff;
 	box-shadow: 0 1px 2px 0 #000;
 }
@@ -42,8 +65,13 @@
 	padding: 0 10px 0 10px;
 }
 
+.json-sidenav {
+	max-width: 60%;
+	width: 60%;
+}
+
 body, html {
-	background: #0d47a1 none repeat scroll 0 0;
+	background: #002b54 none repeat scroll 0 0;
 }
 
 md-icon {
@@ -72,4 +100,12 @@ pre {
 
 md-input-container.md-input-invalid  {
 	color: red; 
+}
+
+md-toast {
+	position: fixed;
+}
+
+md-checkbox {
+	font-size: 14px;
 }

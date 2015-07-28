@@ -107,11 +107,15 @@
 		<div class="content-block-bottom">
 			<div layout="row">
                 <div flex></div>
+				<md-button type="button" aria-label="Show Json" ng-click="toggleJson()"> Show JSON</md-button>
                 <md-button type="button" aria-label="Cancel" ng-click="cancel()">Cancel</md-button>
                 <md-button class="md-accent" aria-label="Save" type="button" ng-click="saveCompany()" ng-disabled="!isCompanyValid()">Save</md-button>
             </div>
 		</div>
-		<div class="content-block">
+	</md-content>
+	<md-sidenav class="md-sidenav-right md-whiteframe-z2 json-sidenav" md-component-id="json-view">
+		<md-content>
+			<div class="content-block">
 			<div layout layout-sm="column" class="content-block-title">
 				<h4>JSON</h4>
 			</div>
@@ -126,5 +130,6 @@
 				</div>			
 			</div>
 		</div>
-	</md-content>
+		</md-content>
+    </md-sidenav>
 </div>

@@ -34,8 +34,7 @@ techChallenge.factory('Company', ['$templateCache', '$log',
                             }
                         ];
                     }
-                    //card.jsonExtendedData = angular.toJson(company, false);
-					card.jsonExtendedData = company;
+                    card.jsonExtendedData = company;
                     var template = $templateCache.get('cardContentTemplate.html');
                     if (template) {
                         card.content = Mustache.to_html(template, company);
