@@ -12,14 +12,14 @@ var techChallenge = angular.module('techChallenge', [
         ]);
 
 techChallenge
-.config(['$logProvider', '$httpProvider', '$routeProvider', '$mdThemingProvider',
-        function ($logProvider, $httpProvider, $routeProvider, $mdThemingProvider) {
+.config(['$logProvider', '$routeProvider', '$mdThemingProvider',
+        function ($logProvider, $routeProvider, $mdThemingProvider) {
             $logProvider.debugEnabled(true);
-            var $log =  angular.injector(['ng']).get('$log')
             $routeProvider
             .when('/company/new', {
                 templateUrl : 'partials/company.html',
-                controller : 'CompanyController'
+                controller : 'CompanyController',
+				controllerAs: 'cc'
             })
             .when('/company/:id/edit', {
                 templateUrl : 'partials/company.html',
@@ -31,17 +31,24 @@ techChallenge
             })
             .otherwise({
                 redirectTo : '/company/new'
-            });
-
-            $httpProvider.interceptors.push(function ($q) {
-                return {                    
-                    'responseError' : function (error) {
-                        // called if HTTP CODE != 2xx
-                        $log.error('Error: ' + error);
-                        return $q.reject(error);
-                    }
-                };
-            });
+            });			
             $mdThemingProvider.theme('default').primaryPalette('blue');
         }
     ]);
+
+techChallenge
+.directive('loadimage', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element) {
+				element.bind('load', function() {
+					scope.validImage = true;
+					scope.$apply();
+				});
+				element.bind('error', function(){
+					scope.validImage = false;
+					scope.$apply();	
+				});
+            }
+        };
+    })

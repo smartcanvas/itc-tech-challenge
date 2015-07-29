@@ -23,6 +23,10 @@
 	margin: 15px;
 }
 
+.company-logo-preview {
+	visibility: hidden;
+}
+
 .content-container {
 	width: 70%;
 	box-sizing: border-box;
@@ -42,6 +46,10 @@
 
 .content-block-title {
 	color: #000;
+}
+
+.req-field {
+	color: red;
 }
 
 .content-block-bottom {

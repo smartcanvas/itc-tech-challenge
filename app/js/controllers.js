@@ -7,6 +7,7 @@ techChallenge
     Utils.storeClientCookies($routeParams);
 	
 	function init() {
+		$scope.validImage = false;
 		$scope.card = new Card();
         $scope.company = {};        
         $window.scrollTo(0, 0);
@@ -31,20 +32,54 @@ techChallenge
         });
 	}
 	
+	function showErrorMessage(e, msg) {
+		var errorMsg = msg || '';
+		if (e) {
+			$log.error('HTTP error ' + e.status + ': ' + e.data.message);
+			errorMsg.concat(': ' + e.data.message + ' (status ' + e.status + ' ' + e.statusText + ')');
+		}
+		showToast(errorMsg, 0);
+	}
+	
 	function loadCompanyCard() {
 		showToast("Loading company info...", null, true);
-        Card.get({
-			cardId : $routeParams.id
-		}).$promise.then(function (r) {
-			showToast("Company info loaded!", 5000);
-			$scope.company = Company.fromCard(r);
-			$scope.card = r;		
+		if ((!isNaN($routeParams.id)) && (Number($routeParams.id) % 1 === 0)) {
+			Card.get({
+				cardId : $routeParams.id
+			}).$promise.then(function (r) {
+				showToast('Company info loaded!', 5000);
+				$scope.company = Company.fromCard(r);
+				$scope.card = r;		
+			}, function (e) {
+				showErrorMessage(e, 'Error loading company page');
+			});
+		} else {
+			showErrorMessage(null, $routeParams.id + ' is not a valid id.');
+		}
+	}
+	
+	function createCompanyCard() {
+		$scope.card.$create()
+		.$promise.then(function (r) {
+			$log.info('Card created: ' + JSON.stringify(r));
+			showToast('Company card saved: ' + r.cardId + '!', 5000);
+			init();
+			$scope.companyForm.$setUntouched();
+		}, function (e) {
+			showErrorMessage(e, 'Error creating company page');
 		});
 	}
 	
-	$scope.toggleJson = function () {
-		$mdSidenav('json-view').toggle();
-	};
+	function updateCompanyCard() {
+		$scope.card.$update()
+		.$promise.then(function (r) {
+			$log.info('Card with id ' + r.cardId + ' updated.');
+			showToast('Company card updated!', 5000);				
+			loadCompanyCard();
+		}, function (e) {
+			showErrorMessage(e, 'Error saving company page');
+		});
+	}	
 	
 	$scope.cancel = function () {
 		if ($routeParams.id) {
@@ -57,6 +92,16 @@ techChallenge
 	
 	$scope.syncCardModel = function () {
 		Company.toCard($scope.company, $scope.card);
+		$log.info($scope.company);
+	};
+	
+	$scope.validateImage = function () {
+		if ($scope.company.logoImgUrl) {
+			if (!$scope.company.logoImgUrl.indexOf('http') == 0) {
+				$scope.company.logoImgUrl = 'http://'.concat($scope.company.logoImgUrl);
+			}
+		}
+		$scope.syncCardModel();
 	};
 	
 	$scope.isCompanyValid = function () {
@@ -70,21 +115,16 @@ techChallenge
 	};
 	
 	$scope.saveCompany = function() {
-		showToast("Saving company info...", null, true);
-		$log.info($scope.card);
-		if ($scope.card.id) {
-			$scope.card.$update(function (r) {
-				$log.info('Card with id ' + r.cardId + ' updated.');
-				showToast('Company card updated!', 5000);				
-				loadCompanyCard();
-			});
+		if ($scope.validImage) {
+			showToast("Saving company info...", null, true);
+			$log.info($scope.card);
+			if ($scope.card.id) {
+				updateCompanyCard();
+			} else {
+				createCompanyCard();
+			}
 		} else {
-			$scope.card.$create(function (r) {
-				$log.info('Card created: ' + JSON.stringify(r));
-				showToast('Company card saved: ' + r.cardId + '!', 5000);
-				init();
-				$scope.companyForm.$setUntouched();
-			});
+			showErrorMessage(null, 'The company logo url doesn\'t point to an image.');
 		}
 	}
 	

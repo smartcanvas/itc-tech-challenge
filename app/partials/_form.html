@@ -2,42 +2,48 @@
 	<md-content>
 		<div class="content-block">
 			<div layout layout-sm="column" class="content-block-title">
-				<h4>Profile Information</h4>
+				<div flex="85">
+					<h4>Profile Information</h4>					
+				</div>
+				<div flex="15" class="req-field">
+					<h5>* required fields</h5>
+				</div>
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container flex>
-					<label>Company Name</label>
-					<input ng-model="company.name" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<label>Company Name *</label>
+					<input ng-model="company.name" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container class="md-icon-float" flex="66" flex-sm>
-					<label>Address</label>
+					<label>Address *</label>
 					<md-icon md-font-icon="icon-ic_place_48px"></md-icon>
-					<input ng-model="company.address" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<input ng-model="company.address" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 				<md-input-container flex="33" flex-sm>
-					<label>Country</label>
-					<input ng-model="company.country" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<label>Country *</label>
+					<input ng-model="company.country" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container class="md-icon-float" flex="66" flex-sm>
 					<label>Website</label>
 					<md-icon md-font-icon="icon-ic_insert_link_48px"></md-icon>
-					<input ng-model="company.website" ng-trim="true" ng-change="syncCardModel()">
+					<input ng-model="company.website" ng-change="syncCardModel()">
 				</md-input-container>
 				<md-input-container class="md-icon-float" flex="33" flex-sm>
-					<label>Phone</label>
+					<label>Phone *</label>
 					<md-icon md-font-icon="icon-ic_phone_48px"></md-icon>
-					<input ng-model="company.phone" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<input ng-model="company.phone" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container class="md-icon-float" flex>
-					<label>Logo Image Url</label>
+					<label>Logo Image Url *</label>
 					<md-icon md-font-icon="icon-ic_insert_link_48px"></md-icon>
-					<input ng-model="company.logoImgUrl" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<input ng-model="company.logoImgUrl" ng-required="true" ng-change="validateImage()" ng-model-options="{ updateOn: 'blur' }">
+					<img class="company-logo-preview" ng-src="{{company.logoImgUrl || '//:0'}}" loadimage>
 				</md-input-container>
 			</div>
 		</div>
@@ -47,12 +53,12 @@
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container flex="50">
-					<label>Name</label>
-					<input ng-model="company.contactName" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<label>Name *</label>
+					<input ng-model="company.contactName" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 				<md-input-container flex="50">
-					<label>Job Title</label>
-					<input ng-model="company.contactJobTitle" ng-required="true" ng-trim="true" ng-change="syncCardModel()">
+					<label>Job Title *</label>
+					<input ng-model="company.contactJobTitle" ng-required="true" ng-change="syncCardModel()">
 				</md-input-container>
 			</div>			
 		</div>
@@ -86,13 +92,13 @@
 			<div layout layout-sm="column">
 				<md-input-container flex>
 					<label>Certifications</label>
-					<textarea ng-model="company.certifications" ng-trim="true" ng-change="syncCardModel()" md-maxlength="3000" column="1" rows="1"></textarea>
+					<textarea ng-model="company.certifications" ng-change="syncCardModel()" md-maxlength="3000" column="1" rows="1"></textarea>
 				</md-input-container>
 			</div>
 			<div layout layout-sm="column">
 				<md-input-container flex>
 					<label>Member Of</label>
-					<input ng-model="company.memberOf" ng-trim="true" ng-change="syncCardModel()">
+					<input ng-model="company.memberOf" ng-change="syncCardModel()">
 				</md-input-container>
 			</div>
 		</div>
@@ -101,35 +107,15 @@
 				<h4>Business Description</h4>
 			</div>
 			<md-input-container flex>
-				<textarea ng-model="company.businessDescription" ng-trim="true" aria-label="Business Description" ng-change="syncCardModel()" md-maxlength="5000" column="1" rows="1"></textarea>
+				<textarea ng-model="company.businessDescription" aria-label="Business Description" ng-change="syncCardModel()" md-maxlength="5000" column="1" rows="1"></textarea>
 			</md-input-container>
 		</div>
 		<div class="content-block-bottom">
 			<div layout="row">
                 <div flex></div>
-				<md-button type="button" aria-label="Show Json" ng-click="toggleJson()"> Show JSON</md-button>
-                <md-button type="button" aria-label="Cancel" ng-click="cancel()">Cancel</md-button>
+				<md-button type="button" aria-label="Cancel" ng-click="cancel()">Cancel</md-button>
                 <md-button class="md-accent" aria-label="Save" type="button" ng-click="saveCompany()" ng-disabled="!isCompanyValid()">Save</md-button>
             </div>
 		</div>
 	</md-content>
-	<md-sidenav class="md-sidenav-right md-whiteframe-z2 json-sidenav" md-component-id="json-view">
-		<md-content>
-			<div class="content-block">
-			<div layout layout-sm="column" class="content-block-title">
-				<h4>JSON</h4>
-			</div>
-			<div layout layout-sm="column">
-				<div flex="50" class="jsonContainer">
-					Company JSON:
-					<pre>{{company | json}}</pre>
-				</div>
-				<div flex="50">
-					Card JSON:
-					<pre>{{card | json}}</pre>
-				</div>			
-			</div>
-		</div>
-		</md-content>
-    </md-sidenav>
 </div>
