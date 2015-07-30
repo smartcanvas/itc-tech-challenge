@@ -36,15 +36,17 @@ techChallenge
     ]);
 
 techChallenge
-.directive('loadimage', function() {
+.directive('loadImage', function($log) {
         return {
             restrict: 'A',
             link: function(scope, element) {
 				element.bind('load', function() {
 					scope.validImage = true;
+					$log.debug('Image successfully loaded.');
 				});
 				element.bind('error', function(){
 					scope.validImage = false;
+					$log.debug('No image loaded.');
 				});
             }
         };

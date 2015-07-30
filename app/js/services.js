@@ -18,10 +18,15 @@ techChallenge.factory('Company', ['$templateCache', '$log',
 						'id' : 'angular-web-app',
 						'userId' : 'angular-web-app-user'
 					};
+					var defaultCategories = ['angular-client', 'smes', 'us-en']
 					if (card.categories) {
-						card.categories.push('angular-client', 'smes', 'us-en');
+						for	(var i = 0; i < defaultCategories.length; i++) {
+							if (card.categories.indexOf(defaultCategories[i]) < 0) {
+								card.categories.push(defaultCategories[i]);
+							}
+						}						
 					} else {
-						card.categories = ['angular-client', 'smes', 'us-en'];
+						card.categories = defaultCategories;
 					}
                     if (company.logoImgUrl) {
                         card.attachments = [{
@@ -58,7 +63,7 @@ techChallenge.factory('Card', ['$resource',
         function ($resource) {
             var clientId = '9OgaKkFSNKD2';
             var clientSecret = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5T2dhS2tGU05LRDIiLCJleHAiOjE0NDgzNzgwNDYsImp0aSI6InFuczNHMlFsM3duUlJjVzRMNlo3dHciLCJpYXQiOjE0MzgwMTAwNDYsInN1YiI6InJvb3RAOU9nYUtrRlNOS0Qyc21hcnRjYW52YXMuY29tIiwiZW1haWwiOiJyb290QDlPZ2FLa0ZTTktEMnNtYXJ0Y2FudmFzLmNvbSIsInRva2VuVHlwZSI6IkFDQ0VTUyIsInJvb3QiOnRydWV9.tM31-Z0y-UizM12sp5i2F5yEuEVp6mBqH_4yDjeZqUE';
-            return $resource('https://api.smartcanvas.com/card/v1/cards/:cardId', {
+            return $resource('https://api-sandbox.smartcanvas.com/card/v1/cards/:cardId', {
                 cardId : '@id'
             }, {
                 get : {
@@ -100,7 +105,7 @@ techChallenge.factory('Card', ['$resource',
             });
         }
     ]);
-
+	
 techChallenge.factory('Utils', ['$cookies',
         function ($cookies) {
             return {

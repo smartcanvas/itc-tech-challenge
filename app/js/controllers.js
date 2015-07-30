@@ -34,14 +34,19 @@ techChallenge
 	function showErrorMessage(e, msg) {
 		var errorMsg = msg || '';
 		if (e) {
-			$log.error('HTTP error ' + e.status + ': ' + e.data.message);
-			errorMsg.concat(': ' + e.data.message + ' (status ' + e.status + ' ' + e.statusText + ')');
+			if (e.data) {
+				$log.error('HTTP error ' + e.status + ' ' + e.statusText + ': ' + e.data.message);
+				errorMsg.concat(': ' + e.data.message + ' (status ' + e.status + ' ' + e.statusText + ')');
+			} else {
+				$log.error('HTTP error ' + e.status + ' ' + e.statusText);
+				errorMsg.concat(': ' + ' status ' + e.status + ' ' + e.statusText);
+			}			
 		}
 		showToast(errorMsg, 0);
 	}
 	
 	function loadCompanyCard() {
-		showToast("Loading company info...", null, true);
+		showToast("Loading company info...", 3000, true);
 		if ((!isNaN($routeParams.id)) && (Number($routeParams.id) % 1 === 0)) {
 			Card.get({
 				cardId : $routeParams.id
@@ -49,6 +54,7 @@ techChallenge
 				showToast('Company info loaded!', 5000);
 				$scope.company = Company.fromCard(r);
 				$scope.card = r;		
+				$log.debug($scope.card);
 			}, function (e) {
 				showErrorMessage(e, 'Error loading company page');
 			});
@@ -58,10 +64,9 @@ techChallenge
 	}
 	
 	function createCompanyCard() {
-		$scope.card.$create()
-		.$promise.then(function (r) {
+		$scope.card.$create(function (r) {
 			$log.info('Card created: ' + JSON.stringify(r));
-			showToast('Company card saved: ' + r.cardId + '!', 5000);
+			showToast('Company card saved: ' + r.id + '!', 5000);
 			init();
 			$scope.companyForm.$setUntouched();
 		}, function (e) {
@@ -70,9 +75,8 @@ techChallenge
 	}
 	
 	function updateCompanyCard() {
-		$scope.card.$update()
-		.$promise.then(function (r) {
-			$log.info('Card with id ' + r.cardId + ' updated.');
+		$scope.card.$update(function (r) {			
+			$log.info('Card updated.');
 			showToast('Company card updated!', 5000);				
 			loadCompanyCard();
 		}, function (e) {
@@ -114,8 +118,8 @@ techChallenge
 	
 	$scope.saveCompany = function() {
 		if (this.validImage) {
+			$log.debug($scope.card);
 			showToast("Saving company info...", null, true);
-			$log.info($scope.card);
 			if ($scope.card.id) {
 				updateCompanyCard();
 			} else {
@@ -136,7 +140,8 @@ techChallenge
 	Utils.storeClientCookies($routeParams);
 	$scope.companies = [];
 	Card.query({
-		status : 'APPROVED'
+		status : 'APPROVED',
+		q: $routeParams.q
 	}).$promise.then(function (r) {
 		$scope.result = r;
 		$scope.cards = r.data;
