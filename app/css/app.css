@@ -25,6 +25,7 @@
 
 .company-logo-preview {
 	visibility: hidden;
+	display: none;
 }
 
 .content-container {

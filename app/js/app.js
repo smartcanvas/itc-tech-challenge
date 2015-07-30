@@ -18,9 +18,8 @@ techChallenge
             $routeProvider
             .when('/company/new', {
                 templateUrl : 'partials/company.html',
-                controller : 'CompanyController',
-				controllerAs: 'cc'
-            })
+                controller : 'CompanyController'
+                })
             .when('/company/:id/edit', {
                 templateUrl : 'partials/company.html',
                 controller : 'CompanyController'
@@ -43,11 +42,9 @@ techChallenge
             link: function(scope, element) {
 				element.bind('load', function() {
 					scope.validImage = true;
-					scope.$apply();
 				});
 				element.bind('error', function(){
 					scope.validImage = false;
-					scope.$apply();	
 				});
             }
         };

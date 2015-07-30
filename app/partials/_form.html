@@ -43,7 +43,7 @@
 					<label>Logo Image Url *</label>
 					<md-icon md-font-icon="icon-ic_insert_link_48px"></md-icon>
 					<input ng-model="company.logoImgUrl" ng-required="true" ng-change="validateImage()" ng-model-options="{ updateOn: 'blur' }">
-					<img class="company-logo-preview" ng-src="{{company.logoImgUrl || '//:0'}}" loadimage>
+					<img class="company-logo-preview" ng-src="{{company.logoImgUrl || '//:0'}}" load-image>
 				</md-input-container>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 			<div layout="row">
                 <div flex></div>
 				<md-button type="button" aria-label="Cancel" ng-click="cancel()">Cancel</md-button>
-                <md-button class="md-accent" aria-label="Save" type="button" ng-click="saveCompany()" ng-disabled="!isCompanyValid()">Save</md-button>
+                <md-button class="md-accent" type="button" aria-label="Save" ng-click="saveCompany()" ng-disabled="!isCompanyValid()">Save</md-button>
             </div>
 		</div>
 	</md-content>

@@ -3,9 +3,8 @@
 /* Controllers */
 
 techChallenge
-.controller('CompanyController', function ($window, $log, $scope, $routeParams, $http, $templateCache, $mdToast, $mdSidenav, Card, Company, Utils) {
+.controller('CompanyController', function ($window, $log, $scope, $routeParams, $http, $templateCache, $mdToast, Card, Company, Utils) {
     Utils.storeClientCookies($routeParams);
-	
 	function init() {
 		$scope.validImage = false;
 		$scope.card = new Card();
@@ -79,8 +78,8 @@ techChallenge
 		}, function (e) {
 			showErrorMessage(e, 'Error saving company page');
 		});
-	}	
-	
+	}
+
 	$scope.cancel = function () {
 		if ($routeParams.id) {
 			loadCompanyCard();
@@ -92,7 +91,6 @@ techChallenge
 	
 	$scope.syncCardModel = function () {
 		Company.toCard($scope.company, $scope.card);
-		$log.info($scope.company);
 	};
 	
 	$scope.validateImage = function () {
@@ -115,7 +113,7 @@ techChallenge
 	};
 	
 	$scope.saveCompany = function() {
-		if ($scope.validImage) {
+		if (this.validImage) {
 			showToast("Saving company info...", null, true);
 			$log.info($scope.card);
 			if ($scope.card.id) {
@@ -127,8 +125,8 @@ techChallenge
 			showErrorMessage(null, 'The company logo url doesn\'t point to an image.');
 		}
 	}
-	
-    init();	
+
+    init();
     if ($routeParams.id) {
 		loadCompanyCard();
     }
