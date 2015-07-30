@@ -28,15 +28,25 @@ techChallenge.factory('Company', ['$templateCache', '$log',
 					} else {
 						card.categories = defaultCategories;
 					}
+					var defaultBkgImg = 'https://storage.googleapis.com/wvef/background-image.png';
                     if (company.logoImgUrl) {
                         card.attachments = [{
                                 'type' : 'photo',
                                 'contentURL' : company.logoImgUrl,
                                 'images' : []
+                            },
+							{
+                                'type' : 'photo',
+                                'contentURL' : defaultBkgImg,
+                                'images' : []
                             }
                         ];
                         card.attachments[0].images = [{
                                 'originalURL' : company.logoImgUrl
+                            }
+                        ];
+						card.attachments[1].images = [{
+                                'originalURL' : defaultBkgImg
                             }
                         ];
                     }
