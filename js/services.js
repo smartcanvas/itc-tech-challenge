@@ -18,7 +18,7 @@ techChallenge.factory('Company', ['$templateCache', '$log',
 						'id' : 'angular-web-app',
 						'userId' : 'angular-web-app-user'
 					};
-					var defaultCategories = ['angular-client', 'smes', 'us-en']
+					var defaultCategories = ['angular-client', 'wbe', 'us-en']
 					if (card.categories) {
 						for	(var i = 0; i < defaultCategories.length; i++) {
 							if (card.categories.indexOf(defaultCategories[i]) < 0) {
