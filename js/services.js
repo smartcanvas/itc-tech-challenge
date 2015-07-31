@@ -71,8 +71,12 @@ techChallenge.factory('Company', ['$templateCache', '$log',
 
 techChallenge.factory('Card', ['$resource',
         function ($resource) {
-            var clientId = '9OgaKkFSNKD2';
+            /*
+			var clientId = '9OgaKkFSNKD2';
             var clientSecret = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5T2dhS2tGU05LRDIiLCJleHAiOjE0NDgzNzgwNDYsImp0aSI6InFuczNHMlFsM3duUlJjVzRMNlo3dHciLCJpYXQiOjE0MzgwMTAwNDYsInN1YiI6InJvb3RAOU9nYUtrRlNOS0Qyc21hcnRjYW52YXMuY29tIiwiZW1haWwiOiJyb290QDlPZ2FLa0ZTTktEMnNtYXJ0Y2FudmFzLmNvbSIsInRva2VuVHlwZSI6IkFDQ0VTUyIsInJvb3QiOnRydWV9.tM31-Z0y-UizM12sp5i2F5yEuEVp6mBqH_4yDjeZqUE';
+			*/
+			var clientId = 'kMRaR35PmKwZRqtEfznNkQUaiitKr0Ij';
+            var clientSecret = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ5WVNyOWlncm1Qa1IiLCJpYXQiOjE0MzgyNjY3OTEsImV4cCI6MTQ2OTgwMzA2Miwic3ViIjoicm9vdEBleGFtcGxlLmNvbSIsInJvb3QiOnRydWUsInRva2VuVHlwZSI6IkFDQ0VTUyIsImVtYWlsIjoicm9vdEBleGFtcGxlLmNvbSJ9.308YvI73sQM3IkCu_iIOQ1h55pAW9nZttG2xOVspdwE';
             return $resource('https://api-sandbox.smartcanvas.com/card/v1/cards/:cardId', {
                 cardId : '@id'
             }, {

@@ -16,7 +16,7 @@
 }
 
 .header-logo {
-	background: rgba(0, 0, 0, 0) url("/app/images/wvef-80px.png") repeat scroll 0 0 / 300px 40px;
+	background: rgba(0, 0, 0, 0) url("/images/wvef-80px.png") repeat scroll 0 0 / 300px 40px;
     display: inline-block;
     height: 40px;
     width: 300px;
