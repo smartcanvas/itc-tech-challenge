@@ -2,7 +2,6 @@
 
 /* App Module */
 var techChallenge = angular.module('techChallenge', [
-            'ngCookies',
             'ngResource',
             'ngRoute',
             'ngAnimate',

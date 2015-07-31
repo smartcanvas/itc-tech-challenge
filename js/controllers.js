@@ -3,9 +3,8 @@
 /* Controllers */
 
 techChallenge
-.controller('CompanyController', function ($window, $log, $scope, $routeParams, $http, $templateCache, $mdToast, Card, Company, Utils) {
-    Utils.storeClientCookies($routeParams);
-	function init() {
+.controller('CompanyController', function ($window, $log, $scope, $routeParams, $http, $templateCache, $mdToast, Card, Company) {
+    function init() {
 		$scope.validImage = false;
 		$scope.card = new Card();
         $scope.company = {};        
@@ -136,8 +135,7 @@ techChallenge
     }
 
 })
-.controller('CompanyListController', function ($log, $scope, $routeParams, Card, Company, Utils) {
-	Utils.storeClientCookies($routeParams);
+.controller('CompanyListController', function ($log, $scope, $routeParams, Card, Company) {
 	$scope.companies = [];
 	Card.query({
 		status : 'APPROVED',
