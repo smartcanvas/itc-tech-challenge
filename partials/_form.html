@@ -71,11 +71,11 @@
 					<label>Year of Establishment</label>
 					<input ui-date ui-date-format="d MM, yy" ng-model="company.yearOfEstablishment" ng-change="syncCardModel()">
 				</md-input-container>
-				<md-input-container flex="35">
+				<md-input-container flex="30">
 					<label>% of the Business Owned by Women</label>
 					<input class="numeric-input" type="number" ng-model="company.percBusinessOwnedByWomen" ng-change="syncCardModel()" min="0" max="100" size="50">
 				</md-input-container>
-				<md-input-container flex="30">
+				<md-input-container flex="35">
 					<md-checkbox ng-model="company.isManagedControledByWomen" aria-label="Managed & Controled by Women?">Managed & Controled by Women? </md-checkbox>
 				</md-input-container>				
 			</div>
@@ -84,7 +84,7 @@
 					<label># of Permanent Employees</label>
 					<input class="numeric-input" type="number" ng-model="company.numPermEmployee" ng-change="syncCardModel()" min="0">
 				</md-input-container>
-				<md-input-container flex="35">
+				<md-input-container flex="30">
 					<label># of Female Employees</label>
 					<input class="numeric-input" type="number" ng-model="company.numFemaleEmployee" ng-change="syncCardModel()" min="0">
 				</md-input-container>
