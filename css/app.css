@@ -42,7 +42,7 @@
 }
 
 .content-block .numeric-input {
-	min-width: 280px;
+	min-width: 250px;
 }
 
 .content-block-title {
@@ -116,5 +116,9 @@ md-toast {
 }
 
 md-checkbox {
+	font-size: 14px;
+}
+
+md-input-container .md-placeholder:not(.md-select-label), md-input-container label:not(.md-no-float) {
 	font-size: 14px;
 }
