@@ -9,7 +9,7 @@ techChallenge.factory('Company', ['$templateCache', '$log',
                     card.title = company.name;
 					card.summary = company.businessDescription;
                     card.mnemonic = company.mnemonic;
-                    card.autoApprove = true;
+                    card.autoApprove = false;
                     card.metaTags = [];
                     card.metaTags[0] = 'c2';
                     var d = new Date();
@@ -18,7 +18,7 @@ techChallenge.factory('Company', ['$templateCache', '$log',
 						'id' : 'angular-web-app',
 						'userId' : 'angular-web-app-user'
 					};
-					var defaultCategories = ['angular-client', 'wbe', 'us-en']
+					var defaultCategories = ['angular-client', 'wbe']
 					if (card.categories) {
 						for	(var i = 0; i < defaultCategories.length; i++) {
 							if (card.categories.indexOf(defaultCategories[i]) < 0) {
